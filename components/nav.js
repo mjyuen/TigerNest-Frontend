@@ -1,5 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
+import { Navbar } from 'reactstrap';
+
+
+
 //import EventList from './eventList'
 
 //import { renderToString } from 'react-dom/server';
@@ -19,7 +23,7 @@ import Link from 'next/link'
 const Nav = () => (
   //const history = createMemoryHistory();
 
-  <nav>
+  <Navbar color="light" light expand="md">
     <ul>
       <li>
         <Link href="/">
@@ -32,6 +36,11 @@ const Nav = () => (
         </Link>
       </li>
       <li>
+        <Link href="/eventRegister">
+          <a>Register to be a Host</a>
+        </Link>
+      </li>
+      <li>
         <Link href="/about">
           <a>About</a>
         </Link>
@@ -40,7 +49,9 @@ const Nav = () => (
     <style jsx>{`
       :global(body) {
         margin: 0;
-        background-color: #ffb833;
+        background: url("/static/background.jpg");
+        background-size: cover;
+
         font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
           Helvetica, sans-serif;
       }
@@ -50,6 +61,8 @@ const Nav = () => (
       ul {
         display: flex;
         justify-content: space-between;
+        margin-top: 0;
+        margin-bottom: 0;
       }
       nav > ul {
         padding: 4px 16px;
@@ -64,7 +77,7 @@ const Nav = () => (
         font-size: 13px;
       }
     `}</style>
-  </nav>
+  </Navbar>
 
 )
 /*

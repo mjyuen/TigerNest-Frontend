@@ -25,11 +25,17 @@ if (typeof window !== 'undefined') {
   ReactDOM.render((<Nav />), document.getElementById('root'));
 } */
 
-import React from 'react'
-import Link from 'next/link'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import React from 'react';
+import Link from 'next/link';
+import Head from '../components/head';
+import Nav from '../components/nav';
+import { GoogleLogin } from 'react-google-login';
+import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
 import { BrowserRouter as Router} from 'react-router-dom'
+
+const responseGoogle = (response) => {
+  console.log(response);
+}
 
 const Home = () => (
   <div>
@@ -39,32 +45,35 @@ const Home = () => (
     <div className="hero">
       <h1 className="title">Welcome to TigerNest!</h1>
       <p className="description">
-        To get started, edit <code>pages/index.js</code> and save to reload.
+        Matching Princeton students with visiting students.
       </p>
 
       <div className="row">
-        <Link href="https://github.com/zeit/next.js#getting-started">
           <a className="card">
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Next on Github and in their examples</p>
+            <h3>Hosts 🛏️</h3>
+            <p>Host a visiting student!</p>
           </a>
-        </Link>
         <Link href="https://open.segment.com/create-next-app">
           <a className="card">
-            <h3>Examples &rarr;</h3>
+            <h3>Visitors 💼</h3>
             <p>
-              Find other example boilerplates on the{' '}
-              <code>create-next-app</code> site
-            </p>
+              Find a place to stay!
+              </p>
+              <GoogleLogin
+                clientId="183998616948-ulm4tmpji0ssvns40u5bs4gsvu1ubeff.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+              />  
           </a>
         </Link>
-        <Link href="https://github.com/segmentio/create-next-app">
-          <a className="card">
-            <h3>Create Next App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it</p>
-          </a>
-        </Link>
+        
       </div>
+      
+      <p className="description">
+        Organizing an event and need hosts? Click here to login with CAS
+      </p>
+
     </div>
 
     <style jsx>{`

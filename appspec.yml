@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/app/
+hooks:
+  BeforeInstall:
+    - location: deploy/install_node.sh
+      timeout: 500
+      runas: root
+  AfterInstall:
+    - location: deploy/npm_install.sh
+      timeout: 500
+      runas: root
+  ApplicationStart:
+    - location: npm-start.sh
+      timeout: 120
+      runas: ec2-user
