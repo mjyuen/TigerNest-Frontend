@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './home'
 import EventList from './eventList'
-import EventSelect from './eventSelect'
+import EventSelect from './visitor/eventSelect'
 
 
 // The Main component renders one of the three provided
@@ -15,7 +15,7 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route path='/events' component={EventList}/>
-      <Route path='/eventSelect' component={EventSelect}/>
+      <Route path='/visitor/eventSelect' component={EventSelect}/>
     </Switch>
   </main>
 )

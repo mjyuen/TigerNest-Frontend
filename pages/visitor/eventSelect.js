@@ -1,6 +1,6 @@
 import React from 'react'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import Head from '../../components/head'
+import Nav from '../../components/nav'
 import { Button, ButtonGroup, ButtonToolbar } from 'reactstrap'
 
 const EventSelect =  () => (

@@ -53,7 +53,7 @@ const Home = () => (
             <h3>Hosts 🛏️</h3>
             <p>Host a visiting student!</p>
           </a>
-        <Link href="/eventSelect">
+        <Link href="/visitor/eventSelect">
           <a className="card">
             <h3>Visitors 💼</h3>
             <p>
