@@ -36,7 +36,7 @@ class ConfirmModal extends React.Component {
             Would you like to proceed with this room?
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+            <Button color="primary" href="/visitor/roomConfirm">Proceed</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
