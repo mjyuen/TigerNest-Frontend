@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from '../../components/head'
 import Nav from '../../components/nav'
-import { Button, ButtonGroup } from 'reactstrap'
+import { Button, ButtonGroup, ButtonToolbar } from 'reactstrap'
 
 const EventSelect =  () => (
   <div>
@@ -9,11 +9,11 @@ const EventSelect =  () => (
     <Nav />
     
     <div className="hero">
-      <center> Welcome to the Select page! </center>
+      <p>Showing room types available for <strong>Ivy Council Conference</strong> on May 13 - 14.</p>
       <div className="option">
       <ButtonGroup vertical>
-        <Button href="/visitor/roomSearchHackPrinceton">HackPrinceton</Button>
-        <Button href="/vistor/roomSearchIvy">Ivy Council Conference</Button>
+        <Button href="/visitor/roomSearch">HackPrinceton</Button>
+        <Button href="/vistor/roomSearch">Ivy Council Conference</Button>
       </ButtonGroup>
       </div>
     </div>
