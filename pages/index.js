@@ -1,37 +1,10 @@
-
-
-/*import React from 'react'
-
-import Link from 'next/link'
-import Head from '../components/head'
-//import NavBar from '../components/navBar'
-//import Nav from '../components/nav'
-
-/*function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
-}
-
-const element = <Welcome name="Sara" />;
-ReactDOM.render(element, document.getElementById('root'));
-
-import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import Nav from '../components/nav';
-import ReactDOM from 'react-dom';
-//var document = typeof document === 'undefined' ? '' : document;
-
-
-if (typeof window !== 'undefined') {
-  ReactDOM.render((<Nav />), document.getElementById('root'));
-} */
-
 import React from 'react';
 import Link from 'next/link';
 import Head from '../components/head';
 import Nav from '../components/nav';
-import { GoogleLogin } from 'react-google-login';
+import Router from 'next/router';
+import { Button } from 'reactstrap';
 import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
-import { BrowserRouter as Router} from 'react-router-dom'
 
 const responseGoogle = (response) => {
   console.log(response);
@@ -53,20 +26,15 @@ const Home = () => (
             <h3>Hosts 🛏️</h3>
             <p>Host a visiting student!</p>
           </a>
-        <Link href="/visitor/eventSelect">
           <a className="card">
             <h3>Visitors 💼</h3>
             <p>
               Find a place to stay!
-              </p>
-              <GoogleLogin
-                clientId="183998616948-ulm4tmpji0ssvns40u5bs4gsvu1ubeff.apps.googleusercontent.com"
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-              />  
+            </p>
+              <Button color="secondary" onClick={() => Router.push("/visitor/login")}>Login</Button>
+              <Button style={{marginTop: '10px'}} color="secondary" onClick={() => Router.push("/visitor/register")}>Register</Button>
+
           </a>
-        </Link>
         
       </div>
       
