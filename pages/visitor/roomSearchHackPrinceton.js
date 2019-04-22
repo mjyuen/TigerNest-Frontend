@@ -4,8 +4,36 @@ import Nav from '../../components/nav'
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
 import ConfirmModal from './confirmModal';
+import { Alert } from 'reactstrap';
+import axios from "axios";
 
-const EventSelect =  () => (
+
+class RoomSearch  extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      roomA: [],
+      roomB: []
+    }
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/pairing/hosts_for_event/2',
+      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+    })
+    .then(resp => {
+      this.setState({roomA: resp.data[0], roomB: resp.data[1]});
+      console.log(resp.data)
+    })
+    
+  }
+
+
+render() {
+  return (
   <div>
   <Head title="Events List" />
     <Nav />
@@ -13,78 +41,26 @@ const EventSelect =  () => (
     <div className="hero">
       <p>Showing room types available for <strong>HackPrinceton</strong> on April 13 - 14.</p>
       <div className="option">
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+      <Card style={{minWidth:'278px'}}>
         <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
+          <CardTitle><strong>Host Gender:</strong> {this.state.roomA.host_gender}</CardTitle>
+          <CardSubtitle><strong>Guest(s):</strong> 0/{this.state.roomA.max_visitors}</CardSubtitle>
+          <CardText>Room: <strong style={{color:'pink'}}>♀ </strong></CardText>
+          <Alert color="success" style={{padding:'.25rem .25rem'}}>
+            10 rooms of this type available
+          </Alert>
+          <ConfirmModal pairing_id={this.state.roomA.pairing_id}/>
         </CardBody>
       </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+      <Card style={{minWidth:'278px'}}>
         <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      </div>
-      <div className="option">
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <ConfirmModal />
+          <CardTitle><strong>Host Gender:</strong> {this.state.roomB.host_gender}</CardTitle>
+            <CardSubtitle><strong>Guest(s):</strong> 0/{this.state.roomB.max_visitors}</CardSubtitle>
+            <CardText>Room: <strong style={{color:'blue'}}>♂  </strong></CardText>
+            <Alert color="success" style={{padding:'.25rem .25rem'}}>
+              2 rooms of this type available
+            </Alert>
+            <ConfirmModal pairing_id={this.state.roomA.pairing_id}/>
         </CardBody>
       </Card>
       </div>
@@ -104,7 +80,9 @@ const EventSelect =  () => (
       }
     `}</style>
   </div>
+  )
+    }
+  }
 
-)
+export default RoomSearch
 
-export default EventSelect

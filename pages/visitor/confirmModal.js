@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle } from 'reactstrap';
-  
+import axios from "axios";
+
 class ConfirmModal extends React.Component {
   constructor(props) {
     super(props);
@@ -10,27 +11,42 @@ class ConfirmModal extends React.Component {
     };
 
     this.toggle = this.toggle.bind(this);
-  }
+    this.state = {
+      room: []
+    }
+   }
 
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
+  
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/pairing/4',
+    })
+    .then(resp => {
+      this.setState({room: resp.data});
+      console.log(resp.data)
+    })
+    
+  }
+
 
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle}>Select this Room</Button>
+        <Button color="primary" onClick={this.toggle}>Select this Room</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>You have selected:</ModalHeader>
           <ModalBody>
           <Card>
-            <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
             <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+            <CardTitle><strong>Host Gender:</strong> {this.state.room.host_gender}</CardTitle>
+            <CardSubtitle><strong>Guest(s):</strong> 0/{this.state.room.max_visitors}</CardSubtitle>
+            <CardText>Room: <strong style={{color:'pink'}}>♀ </strong></CardText>
             </CardBody>
           </Card>
             Would you like to proceed with this room?

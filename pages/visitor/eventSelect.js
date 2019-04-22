@@ -3,13 +3,15 @@ import Head from '../../components/head'
 import Nav from '../../components/nav'
 import { Button, ButtonGroup } from 'reactstrap'
 import axios from "axios";
+import Router from 'next/router';
 
 class EventSelect extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {}
+      user: {},
+      elig:[]
     }
   }
 
@@ -21,6 +23,17 @@ class EventSelect extends React.Component {
     })
     .then(resp => {
       this.setState({user: resp.data});
+      console.log(localStorage.getItem("token"))
+    })
+    
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/eligibility/events_for_visitor/24',
+      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+    })
+    .then(resp => {
+      this.setState({elig: resp.data[0]});
+      console.log(JSON.stringify(resp.data[0]))
     })
   }
 
@@ -34,8 +47,7 @@ class EventSelect extends React.Component {
           <center> Welcome <strong>{this.state.user.name}</strong> to the Select page! </center>
           <div className="option">
           <ButtonGroup vertical>
-            <Button href="/visitor/roomSearchHackPrinceton">HackPrinceton</Button>
-            <Button href="/vistor/roomSearchIvy">Ivy Council Conference</Button>
+            <Button onClick={() => Router.push("/visitor/roomSearchHackPrinceton")}>{this.state.elig.event_name}</Button>
           </ButtonGroup>
           </div>
         </div>
