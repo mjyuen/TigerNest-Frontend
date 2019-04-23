@@ -11,7 +11,7 @@ class EventSelect extends React.Component {
 
     this.state = {
       user: {},
-      elig:[]
+      events:[]
     }
   }
 
@@ -24,16 +24,14 @@ class EventSelect extends React.Component {
     .then(resp => {
       this.setState({user: resp.data});
       console.log(localStorage.getItem("token"))
-    })
-    
-    axios({
-      method: 'get',
-      url: 'http://localhost:5000/eligibility/events_for_visitor/24',
-      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
-    })
+      return  axios({
+        method: 'get',
+        url: 'http://localhost:5000/eligibility/events_for_visitor/' + resp.data.id,
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+      })  
+    })    
     .then(resp => {
-      this.setState({elig: resp.data[0]});
-      console.log(JSON.stringify(resp.data[0]))
+      this.setState({events: resp.data});
     })
   }
 
@@ -47,7 +45,11 @@ class EventSelect extends React.Component {
           <center> Welcome <strong>{this.state.user.name}</strong> to the Select page! </center>
           <div className="option">
           <ButtonGroup vertical>
-            <Button onClick={() => Router.push("/visitor/roomSearchHackPrinceton")}>{this.state.elig.event_name}</Button>
+          {
+            this.state.events.map(event =>
+              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_name)}>{event.event_name}</Button>
+              )
+          }
           </ButtonGroup>
           </div>
         </div>
