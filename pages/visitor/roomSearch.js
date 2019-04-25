@@ -13,7 +13,7 @@ class RoomSearch  extends React.Component {
     super(props);
 
     this.state = {
-      rooms: []
+      rooms: {}
     }
   }
 
@@ -30,13 +30,26 @@ class RoomSearch  extends React.Component {
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
-      this.setState({rooms: resp.data});
+      var dict = {};
+      resp.data.forEach(function(room) {
+        const key = room.host_gender.toLowerCase() + room.max_visitors
+
+        if (!dict[key]) {
+          dict[key] = new Array();
+          dict[key].push(room.pairing_id)
+        }
+        else {
+          dict[key].push(room.pairing_id);
+        }
+      });
+      this.setState({rooms: dict});
     })
     
   }
 
 
 render() {
+  console.log(this.state.rooms);
   return (
   <div>
   <Head title="Events List" />
@@ -46,16 +59,16 @@ render() {
       <p>Showing room types available for <strong>{this.props.event}</strong> on April 13 - 14.</p>
       <div className="option">
       {
-        this.state.rooms.map(room =>
+        Object.keys(this.state.rooms).map(key =>
           <Card style={{minWidth:'278px'}}>
           <CardBody>
-            <CardTitle><strong>Host Gender:</strong> {room.host_gender}</CardTitle>
-            <CardSubtitle><strong>Guest(s):</strong> 0/{room.max_visitors}</CardSubtitle>
+            <CardTitle><strong>Host Gender:</strong> {key.replace(/[0-9]/g, '')}</CardTitle>
+            <CardSubtitle><strong>Guest(s):</strong> 0/{key.replace(/\D/g, "")}</CardSubtitle>
             <CardText>Room: <strong style={{color:'pink'}}>♀ </strong></CardText>
             <Alert color="success" style={{padding:'.25rem .25rem'}}>
-              10 rooms of this type available
+              {this.state.rooms[key].length} room(s) of this type available
             </Alert>
-            <ConfirmModal pairing_id={room.pairing_id}/>
+            <ConfirmModal pairing_id={this.state.rooms[key][0]}/>
           </CardBody>
         </Card>
         )}

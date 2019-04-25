@@ -25,7 +25,7 @@ class ConfirmModal extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/pairing/4',
+      url: 'http://localhost:5000/pairing/' + this.props.pairing_id,
     })
     .then(resp => {
       this.setState({room: resp.data});
