@@ -13,7 +13,9 @@ class RoomSearch  extends React.Component {
     super(props);
 
     this.state = {
-      rooms: {}
+      eventInfo: {},
+      rooms: {},
+      user: {}
     }
   }
 
@@ -26,12 +28,33 @@ class RoomSearch  extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/pairing/hosts_for_event/2',
+      url: 'http://localhost:5000/event/' + this.props.event,
+    })
+    .then(resp => {
+      this.setState({eventInfo: resp.data});
+    })
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/visitor/data',
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
+      this.setState({user: resp.data});
+      return axios({
+        method: 'get',
+        url: 'http://localhost:5000/pairing/hosts_for_event/' + this.props.event,
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+      })  
+    })
+    .then(resp => {
       var dict = {};
-      resp.data.forEach(function(room) {
+      resp.data.forEach((room) => {
+        if (this.state.user.same_gender == true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
+          return;
+        }
+        if (room.same_gender_room == true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
+          return;
+        }
         const key = room.host_gender.toLowerCase() + room.max_visitors
 
         if (!dict[key]) {
@@ -56,7 +79,8 @@ render() {
     <Nav />
     
     <div className="hero">
-      <p>Showing room types available for <strong>{this.props.event}</strong> on April 13 - 14.</p>
+      <p>Showing room types available for <strong>{this.state.eventInfo.name}</strong> on <strong>{this.state.eventInfo.start_date} - {this.state.eventInfo.end_date}</strong>:</p>
+
       <div className="option">
       {
         Object.keys(this.state.rooms).map(key =>
@@ -64,7 +88,7 @@ render() {
           <CardBody>
             <CardTitle><strong>Host Gender:</strong> {key.replace(/[0-9]/g, '')}</CardTitle>
             <CardSubtitle><strong>Guest(s):</strong> 0/{key.replace(/\D/g, "")}</CardSubtitle>
-            <CardText>Room: <strong style={{color:'pink'}}>♀ </strong></CardText>
+            <CardText></CardText>
             <Alert color="success" style={{padding:'.25rem .25rem'}}>
               {this.state.rooms[key].length} room(s) of this type available
             </Alert>

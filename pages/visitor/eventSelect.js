@@ -23,10 +23,9 @@ class EventSelect extends React.Component {
     })
     .then(resp => {
       this.setState({user: resp.data});
-      console.log(localStorage.getItem("token"))
       return  axios({
         method: 'get',
-        url: 'http://localhost:5000/eligibility/events_for_visitor/' + resp.data.id,
+        url: 'http://localhost:5000/eligibility/events_for_visitor/' + resp.data.visitor_email,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })  
     })    
@@ -47,7 +46,7 @@ class EventSelect extends React.Component {
           <ButtonGroup vertical>
           {
             this.state.events.map(event =>
-              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_name)}>{event.event_name}</Button>
+              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id)}>{event.event_name}</Button>
               )
           }
           </ButtonGroup>

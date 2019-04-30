@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle } from 'reactstrap';
 import axios from "axios";
+import Router from 'next/router';
+
 
 class ConfirmModal extends React.Component {
   constructor(props) {
@@ -12,7 +14,8 @@ class ConfirmModal extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      room: []
+      room: [],
+      user: {}
     }
    }
 
@@ -20,6 +23,32 @@ class ConfirmModal extends React.Component {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
+  }
+  
+  handleSubmit=() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/visitor/data',
+      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+    })
+    .then(resp => {
+      this.setState({user: resp.data});
+      return  axios({
+        method: 'post',
+        url: 'http://localhost:5000/visitor_pairing',
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+        data: {
+          visitor_id: resp.data.id,
+          visitor_email: resp.data.email,
+          host_id: this.state.room.host_id,
+          event_id: this.state.room.event_id,
+          pairing_id: this.props.pairing_id
+        }
+      })  
+    })
+    .then(resp => {
+      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id)
+    })
   }
   
   componentDidMount() {
@@ -46,13 +75,13 @@ class ConfirmModal extends React.Component {
             <CardBody>
             <CardTitle><strong>Host Gender:</strong> {this.state.room.host_gender}</CardTitle>
             <CardSubtitle><strong>Guest(s):</strong> 0/{this.state.room.max_visitors}</CardSubtitle>
-            <CardText>Room: <strong style={{color:'pink'}}>♀ </strong></CardText>
+            <CardText></CardText>
             </CardBody>
           </Card>
-            Would you like to proceed with this room?
+            Would you like to proceed with this room type?
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" href="/visitor/roomConfirm">Proceed</Button>{' '}
+            <Button color="primary" onClick={this.handleSubmit}>Proceed</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

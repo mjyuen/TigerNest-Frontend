@@ -1,50 +1,93 @@
 import React from 'react';
 import Link from 'next/link';
 import Head from '../components/head';
-import Nav from '../components/nav';
-import Router from 'next/router';
 import { Button } from 'reactstrap';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
+import Router from 'next/router';
 
-const responseGoogle = (response) => {
-  console.log(response);
+
+
+var divStyle = {
+  color: 'white'
+  //color: 'dodgerblue'
+};
+
+var divStyle2 = {
+  //color: 'white'
+  color: 'dodgerblue'
+};
+
+var divStyle3 = {
+  color: 'black'
 }
+
+
+
 
 const Home = () => (
   <div>
+
     <Head title="Home" />
-    <Nav />
-
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet" />
+ 
+ 
     <div className="hero">
-      <h1 className="title">Welcome to TigerNest!</h1>
-      <p className="description">
-        Matching Princeton students with visiting students.
+      <h1 className="title" style={divStyle}>WELCOME TO <br /> TIGERNEST!</h1>
+      <p className="description" style={divStyle}>
+      <br />
+        Matching Princeton students with visiting guests
       </p>
-
+      <br />
+      <center style={divStyle}> I am a.... </center>
       <div className="row">
+
+      {/* <Card className="text-white" color="dark">
+        <h5> Event Organizer </h5>
+        <p> Register events that <br /> and visitors sign up for!</p>
+          <center> <Link href="/myEvents">
+            <a className="button">
+              Login
+            </a>
+          </Link> </center>
+          <center> <Link href="/eventOrganizerRegister">
+            <a className="button">
+              Sign up
+            </a>
+          </Link> </center>
+      </Card> */}
+
+      <Link href="/myEvents">
           <a className="card">
-            <h3>Hosts 🛏️</h3>
-            <p>Host a visiting student!</p>
+            <h3 style={divStyle3}> Event Organizer</h3>
+            <p style={divStyle3}> Register events that hosts and visitors sign up for!</p>
           </a>
+      </Link> 
+      <Link href="/hostAllEvents">
           <a className="card">
-            <h3>Visitors 💼</h3>
-            <p>
+            <h3 style={divStyle3}>Host 🛏️</h3>
+            <p style={divStyle3}>Host a visiting student!</p>
+          </a>
+      </Link>
+          <a className="card">
+            <h3 style={divStyle3}>Visitor 💼</h3>
+            <p style={divStyle3}>
               Find a place to stay!
-            </p>
+              </p>
               <Button color="secondary" onClick={() => Router.push("/visitor/login")}>Login</Button>
               <Button style={{marginTop: '10px'}} color="secondary" onClick={() => Router.push("/visitor/register")}>Register</Button>
-
           </a>
-        
-      </div>
-      
-      <p className="description">
-        Organizing an event and need hosts? Click here to login with CAS
-      </p>
-
+    </div>
     </div>
 
     <style jsx>{`
+      :global(body) {
+        margin: 0;
+        //background: url("/static/candyBackground.jpg");
+        background: url("/static/background.jpg");
+        //backbround-color: #FFFFFF;
+        //background-color: #1A9788;
+        background-size: cover;
+        font-family: 'Maven Pro', sans-serif;
+      }
       .hero {
         width: 100%;
         color: #333;
@@ -89,8 +132,8 @@ const Home = () => (
         font-size: 13px;
         color: #333;
       }
-    `}</style>
+    `}</style> 
   </div>
 )
 
-export default Home 
+export default Home
