@@ -25,7 +25,7 @@ class EventSelect extends React.Component {
       this.setState({user: resp.data});
       return  axios({
         method: 'get',
-        url: 'https://tigernest-backend.herokuapp.com/eligibility/events_for_visitor/' + resp.data.visitor_email,
+        url: 'https://tigernest-backend.herokuapp.com/eligibility/events_for_visitor/' + resp.data.email,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })  
     })    
