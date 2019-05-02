@@ -1,49 +1,32 @@
 import React from 'react'
-import Link from 'next/link'
-import { Navbar } from 'reactstrap';
+import { Navbar, NavLink } from 'reactstrap';
 
-
-
-//import EventList from './eventList'
-
-//import { renderToString } from 'react-dom/server';
-//import StaticRouter from 'react-router-dom/StaticRouter';
-//import EventList from '../components/eventList'
-//import { BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
-//import createBrowserHistory from 'history/createBrowserHistory'
-
-/*const links = [
-  { href: 'https://github.com/segmentio/create-next-app', label: 'Github' }
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-}) */
-
-
-const Nav = () => (
+class Nav extends React.Component {
   //const history = createMemoryHistory();
 
+  constructor(props) {
+    super(props);
+  }
+
+  handleLogout=() => {
+    if (process.browser)
+    localStorage.removeItem("token");
+    Router.push("/");
+  }
+
+  render() {
+    return (
   <Navbar color="light" light expand="md">
     <ul>
       <li>
-        <Link href="/">
+        <NavLink href="/">
           <a>Home</a>
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link href="/eventList">
-          <a>Events</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/eventRegister">
-          <a>Register to be a Host</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
+        <NavLink href="/" onClick={this.handleLogout}>
+          <a>Logout</a>
+        </NavLink>
       </li>
     </ul>
     <style jsx>{`
@@ -78,20 +61,9 @@ const Nav = () => (
       }
     `}</style>
   </Navbar>
+    )
+  }
+}
 
-)
-/*
-export default Nav 
-
-import React from 'react'
-import Header from './header'
-import Main from './main'
-
-const Nav = () => (
-  <div>
-  <Header />
-  <Main />
-  </div>
-)*/
 
 export default Nav

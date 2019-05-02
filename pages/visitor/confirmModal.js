@@ -47,7 +47,14 @@ class ConfirmModal extends React.Component {
       })  
     })
     .then(resp => {
-      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id)
+      axios({
+        method: 'get',
+        url: 'http://localhost:5000/pairing/addVisitor/' + this.props.pairing_id,
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+      })
+     })
+    .then(resp => {
+      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id)
     })
   }
   

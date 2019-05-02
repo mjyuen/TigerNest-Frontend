@@ -4,6 +4,8 @@ import Nav from '../../components/nav'
 import { Button, ButtonGroup } from 'reactstrap'
 import axios from 'axios';
 import { Form, Field } from 'react-final-form'
+import { Navbar, NavLink } from 'reactstrap';
+
 
 class Register extends React.Component {
     onSubmit = values => {
@@ -25,6 +27,8 @@ class Register extends React.Component {
             // set local storage on browser
             if (process.browser)
                 localStorage.setItem("token", resp.data.access_token);
+            alert('Registered!');
+
         })
         .catch(err => alert('Registration Error'));
     };
@@ -34,7 +38,16 @@ class Register extends React.Component {
 
             <div>
             <Head title="Register" />
-            <Nav />
+            <Navbar color="light" light expand="md">
+                <ul>
+                <li>
+                    <NavLink href="/">
+                    <a>Home</a>
+                    </NavLink>
+                </li>
+                </ul>
+                </Navbar>
+
             <div className="regForm">
                 <Form
                     onSubmit={this.onSubmit}
@@ -102,6 +115,36 @@ class Register extends React.Component {
         padding-left: .5rem;
         padding-right: .5rem;
       }
+      :global(body) {
+        margin: 0;
+        background: url("/static/background.jpg");
+        background-size: cover;
+
+        font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+          Helvetica, sans-serif;
+      }
+      nav {
+        text-align: center;
+      }
+      ul {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      nav > ul {
+        padding: 4px 16px;
+      }
+      li {
+        display: flex;
+        padding: 6px 8px;
+      }
+      a {
+        color: #067df7;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
  
     `}</style>
             </div>

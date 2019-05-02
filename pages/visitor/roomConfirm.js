@@ -14,11 +14,40 @@ class RoomConfirm extends React.Component {
   }
   static getInitialProps({query}) {
     return {
-      event: query.event
+      event: query.event,
+      pairing_id: query.pairing
     }
   }
 
+  handleSubmit=() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/visitor/data',
+      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+    })
+    .then(resp => {
+      this.setState({user: resp.data});
+      return  axios({
+        method: 'delete',
+        url: 'http://localhost:5000/visitor_pairing/delete/' + this.props.pairing_id,
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+      })  
+    })
+    .then(resp => {
+      axios({
+        method: 'get',
+        url: 'http://localhost:5000/pairing/removeVisitor/' + this.props.pairing_id,
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
+      })
+     })
+    .then(resp => {
+      Router.push("/visitor/roomSearch?event=" + this.state.room.event_id)
+    })
+  }
+
   componentDidMount() {
+    console.log(this.props.event)
+    console.log(this.props.pairing_id)
     axios({
       method: 'get',
       url: 'http://localhost:5000/event/' + this.props.event,
@@ -38,7 +67,7 @@ class RoomConfirm extends React.Component {
     <div className="hero">
       <center> Your room type choice for <strong>{this.state.eventInfo.name}</strong> has been confirmed! </center>
       <div className="option">
-      <Button href="/visitor/roomSearch">I would like to change my room type</Button>
+      <Button href="/visitor/roomSearch" onClick={this.handleSubmit}>I would like to change my room type</Button>
       <Button href="/visitor/eventSelect">I would like to register for a different event</Button>
 
       </div>
