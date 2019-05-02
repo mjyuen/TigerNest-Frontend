@@ -55,13 +55,13 @@ const Home = () => (
           </Link> </center>
       </Card> */}
 
-      <Link href="/myEvents">
+      <Link href="https://tiger-nest2.herokuapp.com/myEvents">
           <a className="card">
             <h3 style={divStyle3}> Event Organizer</h3>
             <p style={divStyle3}> Register events that hosts and visitors sign up for!</p>
           </a>
       </Link> 
-      <Link href="/hostAllEvents">
+      <Link href="https://tiger-nest2.herokuapp.com/hostAllEvents">
           <a className="card">
             <h3 style={divStyle3}>Host 🛏️</h3>
             <p style={divStyle3}>Host a visiting student!</p>
