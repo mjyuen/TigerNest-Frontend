@@ -1,13 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import Head from '../components/head'
-import Nav from '../components/nav'
 import fetch from 'isomorphic-unfetch'
-import Router from 'next/router'
-import { Button, Container, Row, Col, CustomInput, Form, FormFeedback, FormGroup, FormControl, Label, Input, FormText, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
-import PropTypes from 'prop-types'
-import Cookies from 'js-cookie';
-import './bootstrap.css';
 
 
 const database_url = "https://tigernest-backend.herokuapp.com"
@@ -172,10 +165,7 @@ class VisitorConfirmation extends React.Component {
     <style jsx>{`
       :global(body) {
         margin: 0;
-        //background: url("/static/candyBackground.jpg");
         background: url("/static/background.jpg");
-        //backbround-color: #FFFFFF;
-        //background-color: #1A9788;
         background-size: cover;
         font-family: 'Maven Pro', sans-serif;
       }
