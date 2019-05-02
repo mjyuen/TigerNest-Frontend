@@ -14,7 +14,7 @@ class Register extends React.Component {
     onSubmit = values => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/visitor/login',
+            url: 'https://tigernest-backend.herokuapp.com/visitor/login',
             data: {
                 "email": values.email,
                 "password": values.password

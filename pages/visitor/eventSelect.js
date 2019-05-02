@@ -18,14 +18,14 @@ class EventSelect extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/visitor/data',
+      url: 'https://tigernest-backend.herokuapp.com/visitor/data',
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
       this.setState({user: resp.data});
       return  axios({
         method: 'get',
-        url: 'http://localhost:5000/eligibility/events_for_visitor/' + resp.data.visitor_email,
+        url: 'https://tigernest-backend.herokuapp.com/eligibility/events_for_visitor/' + resp.data.visitor_email,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })  
     })    

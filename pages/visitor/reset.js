@@ -11,7 +11,7 @@ class Forgot extends React.Component {
     onSubmit = values => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/visitor/change-password',
+            url: 'https://tigernest-backend.herokuapp.com/visitor/change-password',
             data: {
                 "password": values.password,
                 "resetToken": this.props.resetToken

@@ -13,7 +13,7 @@ class Forgot extends React.Component {
     onSubmit = values => {
         axios({
             method: 'post',
-            url: 'http://localhost:5000/visitor/reset',
+            url: 'https://tigernest-backend.herokuapp.com/visitor/reset',
             data: {
                 "email": values.email,
             }

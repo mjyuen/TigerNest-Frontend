@@ -12,7 +12,7 @@ class Register extends React.Component {
         console.log(values)
         axios({
             method: 'post',
-            url: 'http://localhost:5000/visitor',
+            url: 'https://tigernest-backend.herokuapp.com/visitor',
             data: {
                 "gender": values.gender,
                 "name": values.name,
@@ -23,7 +23,6 @@ class Register extends React.Component {
             }
         })
         .then(resp => {
-            console.log(resp)
             // set local storage on browser
             if (process.browser)
                 localStorage.setItem("token", resp.data.access_token);

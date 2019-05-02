@@ -22,21 +22,21 @@ class RoomConfirm extends React.Component {
   handleSubmit=() => {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/visitor/data',
+      url: 'https://tigernest-backend.herokuapp.com/visitor/data',
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
       this.setState({user: resp.data});
       return  axios({
         method: 'delete',
-        url: 'http://localhost:5000/visitor_pairing/delete/' + this.props.pairing_id,
+        url: 'https://tigernest-backend.herokuapp.com/visitor_pairing/delete/' + this.props.pairing_id,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })  
     })
     .then(resp => {
       axios({
         method: 'get',
-        url: 'http://localhost:5000/pairing/removeVisitor/' + this.props.pairing_id,
+        url: 'https://tigernest-backend.herokuapp.com/pairing/removeVisitor/' + this.props.pairing_id,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })
      })
@@ -50,7 +50,7 @@ class RoomConfirm extends React.Component {
     console.log(this.props.pairing_id)
     axios({
       method: 'get',
-      url: 'http://localhost:5000/event/' + this.props.event,
+      url: 'https://tigernest-backend.herokuapp.com/event/' + this.props.event,
     })
     .then(resp => {
       this.setState({eventInfo: resp.data});

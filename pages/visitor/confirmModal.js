@@ -28,14 +28,14 @@ class ConfirmModal extends React.Component {
   handleSubmit=() => {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/visitor/data',
+      url: 'https://tigernest-backend.herokuapp.com/visitor/data',
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
       this.setState({user: resp.data});
       return  axios({
         method: 'post',
-        url: 'http://localhost:5000/visitor_pairing',
+        url: 'https://tigernest-backend.herokuapp.com/visitor_pairing',
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
         data: {
           visitor_id: resp.data.id,
@@ -49,7 +49,7 @@ class ConfirmModal extends React.Component {
     .then(resp => {
       axios({
         method: 'get',
-        url: 'http://localhost:5000/pairing/addVisitor/' + this.props.pairing_id,
+        url: 'https://tigernest-backend.herokuapp.com/pairing/addVisitor/' + this.props.pairing_id,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })
      })
@@ -61,7 +61,7 @@ class ConfirmModal extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/pairing/' + this.props.pairing_id,
+      url: 'https://tigernest-backend.herokuapp.com/pairing/' + this.props.pairing_id,
     })
     .then(resp => {
       this.setState({room: resp.data});

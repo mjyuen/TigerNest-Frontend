@@ -28,21 +28,21 @@ class RoomSearch  extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: 'http://localhost:5000/event/' + this.props.event,
+      url: 'https://tigernest-backend.herokuapp.com/event/' + this.props.event,
     })
     .then(resp => {
       this.setState({eventInfo: resp.data});
     })
     axios({
       method: 'get',
-      url: 'http://localhost:5000/visitor/data',
+      url: 'https://tigernest-backend.herokuapp.com/visitor/data',
       headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
     })
     .then(resp => {
       this.setState({user: resp.data});
       return axios({
         method: 'get',
-        url: 'http://localhost:5000/pairing/hosts_for_event/' + this.props.event,
+        url: 'https://tigernest-backend.herokuapp.com/pairing/hosts_for_event/' + this.props.event,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })  
     })
