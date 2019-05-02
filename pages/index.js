@@ -81,10 +81,7 @@ const Home = () => (
     <style jsx>{`
       :global(body) {
         margin: 0;
-        //background: url("/static/candyBackground.jpg");
         background: url("/static/background.jpg");
-        //backbround-color: #FFFFFF;
-        //background-color: #1A9788;
         background-size: cover;
         font-family: 'Maven Pro', sans-serif;
       }
