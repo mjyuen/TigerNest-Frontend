@@ -55,6 +55,9 @@ class RoomSearch  extends React.Component {
         if (room.same_gender_room == true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
           return;
         }
+        if (room.num_visitors === room.max_visitors) {
+          return;
+        }
         const key = room.num_visitors + room.host_gender.toLowerCase() + room.max_visitors
         if (!dict[key]) {
           dict[key] = new Array();
@@ -86,7 +89,7 @@ render() {
           <Card style={{minWidth:'278px'}}>
           <CardBody>
             <CardTitle><strong>Host Gender:</strong> {key.replace(/[0-9]/g, '')}</CardTitle>
-            <CardSubtitle><strong>Guest(s):</strong> {Number(key.replace(/^([0-9]+)/g))}/{key.replace(/(\d+)(?!.*\d)/g, "")}</CardSubtitle>
+            <CardSubtitle><strong>Guest(s):</strong> {key.match(/\d+/g)[0]}/{key.match(/\d+/g)[1]}</CardSubtitle>
             <CardText></CardText>
             <Alert color="success" style={{padding:'.25rem .25rem'}}>
               {this.state.rooms[key].length} room(s) of this type available
