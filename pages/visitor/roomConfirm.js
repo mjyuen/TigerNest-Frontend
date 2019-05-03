@@ -21,17 +21,9 @@ class RoomConfirm extends React.Component {
 
   handleSubmit=() => {
     axios({
-      method: 'get',
-      url: 'https://tigernest-backend.herokuapp.com/visitor/data',
-      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
-    })
-    .then(resp => {
-      this.setState({user: resp.data});
-      return  axios({
         method: 'delete',
         url: 'https://tigernest-backend.herokuapp.com/visitor_pairing/delete/' + this.props.pairing_id,
-        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
-      })  
+        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}, 
     })
     .then(resp => {
       axios({

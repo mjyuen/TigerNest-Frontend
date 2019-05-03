@@ -81,7 +81,7 @@ class ConfirmModal extends React.Component {
           <Card>
             <CardBody>
             <CardTitle><strong>Host Gender:</strong> {this.state.room.host_gender}</CardTitle>
-            <CardSubtitle><strong>Guest(s):</strong> 0/{this.state.room.max_visitors}</CardSubtitle>
+            <CardSubtitle><strong>Guest(s):</strong> {this.state.room.num_visitors}/{this.state.room.max_visitors}</CardSubtitle>
             <CardText></CardText>
             </CardBody>
           </Card>
