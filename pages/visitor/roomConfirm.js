@@ -34,7 +34,7 @@ class RoomConfirm extends React.Component {
       })
      })
     .then(resp => {
-      Router.push("/visitor/roomSearch?event=" + this.state.room.event_id)
+      Router.push("/visitor/roomSearch?event=" + this.state.eventInfo.event_id)
     })
   }
 
