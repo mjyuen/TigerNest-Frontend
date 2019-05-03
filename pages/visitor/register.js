@@ -16,7 +16,7 @@ class Register extends React.Component {
             data: {
                 "gender": values.gender,
                 "name": values.name,
-                "same_gender": false,
+                "same_gender": values.same_gender,
                 "university": values.university,
                 "email": values.email,
                 "password": values.password
@@ -68,6 +68,14 @@ class Register extends React.Component {
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     </Field>
+                            </div>
+                            <div>
+                                <label>Would prefer to room with same gender?:</label>
+                                <Field name="same_gender" component="select">
+                                <option />
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                                </Field>
                             </div>
                             <div>
                                 <label>University: </label>
