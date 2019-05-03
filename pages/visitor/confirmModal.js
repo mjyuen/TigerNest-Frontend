@@ -56,7 +56,7 @@ class ConfirmModal extends React.Component {
       })
      })
     .then(resp => {
-      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id + "&vp+" + this.state.vp.visitor_pairing_id)
+      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id + "&vp=" + this.state.vp.visitor_pairing_id)
     })
   }
   
