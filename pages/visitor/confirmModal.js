@@ -40,7 +40,6 @@ class ConfirmModal extends React.Component {
         data: {
           visitor_id: resp.data.id,
           visitor_email: resp.data.email,
-          host_id: this.state.room.host_id,
           event_id: this.state.room.event_id,
           pairing_id: this.props.pairing_id
         }
