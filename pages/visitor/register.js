@@ -70,7 +70,7 @@ class Register extends React.Component {
                                     </Field>
                             </div>
                             <div>
-                                <label>Would prefer to room with same gender?:</label>
+                                <label>Would prefer to room with someone of the same gender?:</label>
                                 <Field name="same_gender" component="select">
                                 <option />
                                 <option value="true">Yes</option>
