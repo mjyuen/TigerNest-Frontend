@@ -15,7 +15,8 @@ class ConfirmModal extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       room: [],
-      user: {}
+      user: {},
+      vp: {}
     }
    }
 
@@ -33,6 +34,7 @@ class ConfirmModal extends React.Component {
     })
     .then(resp => {
       this.setState({user: resp.data});
+      console.log(this.props.pairing_id)
       return  axios({
         method: 'post',
         url: 'https://tigernest-backend.herokuapp.com/visitor_pairing',
@@ -46,6 +48,7 @@ class ConfirmModal extends React.Component {
       })  
     })
     .then(resp => {
+      this.setState({vp: resp.data})
       axios({
         method: 'post',
         url: 'https://tigernest-backend.herokuapp.com/pairing/addVisitor/' + this.props.pairing_id,
@@ -53,7 +56,7 @@ class ConfirmModal extends React.Component {
       })
      })
     .then(resp => {
-      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id)
+      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id + "&vp+" + this.state.vp.visitor_pairing_id)
     })
   }
   

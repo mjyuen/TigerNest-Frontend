@@ -15,14 +15,15 @@ class RoomConfirm extends React.Component {
   static getInitialProps({query}) {
     return {
       event: query.event,
-      pairing_id: query.pairing
+      pairing_id: query.pairing,
+      vp: query.vp
     }
   }
 
   handleSubmit=() => {
     axios({
         method: 'delete',
-        url: 'https://tigernest-backend.herokuapp.com/visitor_pairing/delete/' + this.props.pairing_id,
+        url: 'https://tigernest-backend.herokuapp.com/visitor_pairing/delete/' + this.props.vp,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}, 
     })
     .then(resp => {
