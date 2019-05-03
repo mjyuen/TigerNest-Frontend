@@ -55,6 +55,13 @@ class ConfirmModal extends React.Component {
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })
      })
+     .then(resp => {
+       axios({
+         method: 'post',
+         url: 'https://tigernest-backend.herokuapp.com/eligibility/visitor_signup/' + localStorage.getItem("eligibility")
+       })
+       console.log("i hope this worked")
+     })
     .then(resp => {
       Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id + "&vp=" + this.state.vp.visitor_pairing_id)
     })

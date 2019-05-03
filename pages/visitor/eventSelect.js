@@ -45,9 +45,9 @@ class EventSelect extends React.Component {
           <div className="option">
           <ButtonGroup vertical>
           {
-            this.state.events.map(event =>
-              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id)}>{event.event_name}</Button>
-              )
+            this.state.events.map(event => 
+              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
+            )
           }
           </ButtonGroup>
           </div>

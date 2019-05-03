@@ -21,11 +21,16 @@ class RoomSearch  extends React.Component {
 
   static getInitialProps({query}) {
     return {
-      event: query.event
+      event: query.event,
+      id: query.id
     };
   }
 
   componentDidMount() {
+    if (process.browser) {
+      localStorage.setItem("eligibility", this.props.id);
+      console.log("hello" + this.props.id)
+    }
     axios({
       method: 'get',
       url: 'https://tigernest-backend.herokuapp.com/event/' + this.props.event,
