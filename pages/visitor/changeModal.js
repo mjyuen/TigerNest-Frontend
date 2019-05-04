@@ -5,7 +5,7 @@ import axios from "axios";
 import Router from 'next/router';
 
 
-class ConfirmModal extends React.Component {
+class ChangeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,44 +60,29 @@ class ConfirmModal extends React.Component {
          method: 'post',
          url: 'https://tigernest-backend.herokuapp.com/eligibility/visitor_signup/' + localStorage.getItem("eligibility")
        })
+       console.log("i hope this worked")
      })
     .then(resp => {
-      Router.push("/visitor/roomConfirm?event=" + this.state.room.event_id + "&pairing=" + this.props.pairing_id + "&vp=" + this.state.vp.visitor_pairing_id)
+        Router.push("/visitor/roomSearch?event=" + this.props.event_id + "&id=" + this.props.eligibility_id)
     })
   }
   
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: 'https://tigernest-backend.herokuapp.com/pairing/' + this.props.pairing_id,
-    })
-    .then(resp => {
-      this.setState({room: resp.data});
-      console.log(resp.data)
-    })
-    
   }
 
 
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.toggle}>Select this Room</Button>
+        <Button color="secondary" onClick={this.toggle}>{this.props.event_name}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>You have selected:</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Edit your room type selection?</ModalHeader>
           <ModalBody>
-          <Card>
-            <CardBody>
-            <CardTitle><strong>Host Gender:</strong> {this.state.room.host_gender}</CardTitle>
-            <CardSubtitle><strong>Guest(s):</strong> {this.state.room.num_visitors}/{this.state.room.max_visitors}</CardSubtitle>
-            <CardText></CardText>
-            </CardBody>
-          </Card>
-            Would you like to proceed with this room type?
+            You have already selected a room for this event. If you choose to proceed and look at available rooms, your current reservation <strong>will be deleted</strong> and you must go through room selection again. You can still select the same room type if you proceed (if it is available), after your current reservation is removed.
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.handleSubmit}>Proceed</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" onClick={this.toggle}>Keep Current Room</Button>
           </ModalFooter>
         </Modal>
       </div>
@@ -105,4 +90,4 @@ class ConfirmModal extends React.Component {
   }
 }
 
-export default ConfirmModal;
+export default ChangeModal;

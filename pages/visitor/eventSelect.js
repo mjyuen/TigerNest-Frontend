@@ -49,8 +49,8 @@ class EventSelect extends React.Component {
             this.state.events.map(event => { 
               if (event.signed_up) {
                 return (
-                  <Button color="secondary" onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
-                )
+                  <ChangeModal event_name={event.event_name} event_id={event.event_id} eligibility_id={event.eligibility_id}/>
+                  )
               }
               return (<Button color="primary" onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
               )
