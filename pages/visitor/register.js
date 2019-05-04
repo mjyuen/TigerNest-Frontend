@@ -5,6 +5,8 @@ import { Button, ButtonGroup } from 'reactstrap'
 import axios from 'axios';
 import { Form, Field } from 'react-final-form'
 import { Navbar, NavLink } from 'reactstrap';
+import Router from 'next/router';
+
 
 
 class Register extends React.Component {
@@ -27,6 +29,8 @@ class Register extends React.Component {
             if (process.browser)
                 localStorage.setItem("token", resp.data.access_token);
             alert('Registered!');
+            Router.push("/visitor/login");
+
 
         })
         .catch(err => alert('Registration Error'));

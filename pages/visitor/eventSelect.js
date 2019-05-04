@@ -30,6 +30,7 @@ class EventSelect extends React.Component {
       })  
     })    
     .then(resp => {
+      console.log(resp.data)
       this.setState({events: resp.data});
     })
   }
@@ -45,9 +46,15 @@ class EventSelect extends React.Component {
           <div className="option">
           <ButtonGroup vertical>
           {
-            this.state.events.map(event => 
-              <Button onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
-            )
+            this.state.events.map(event => { 
+              if (event.signed_up) {
+                return (
+                  <Button color="secondary" onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
+                )
+              }
+              return (<Button color="primary" onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
+              )
+            })
           }
           </ButtonGroup>
           </div>
