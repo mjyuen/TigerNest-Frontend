@@ -33,7 +33,7 @@ class Register extends React.Component {
 
 
         })
-        .catch(err => alert('Registration Error'));
+        .catch(err => alert('Sorry, there was an error processing your registration. If you already have an account with us, please login instead. '));
     };
 
     render() {

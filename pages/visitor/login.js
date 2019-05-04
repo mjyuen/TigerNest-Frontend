@@ -29,7 +29,7 @@ class Register extends React.Component {
             
             Router.push("/visitor/eventSelect");
         })
-        .catch(err => alert('Login Error'));
+        .catch(err => alert('There was an error logging in. Please make sure you have created an account and are typing the same login credentials.'));
     };
 
     render() {
