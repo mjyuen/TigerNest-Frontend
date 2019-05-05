@@ -55,18 +55,17 @@ const Home = () => (
           </Link> </center>
       </Card> */}
 
-      <Link href="https://tiger-nest2.herokuapp.com/myEvents">
           <a className="card">
             <h3 style={divStyle3}> Event Organizer</h3>
             <p style={divStyle3}> Register events that hosts and visitors sign up for!</p>
+            <Button style={{marginTop: '29px'}} color="secondary" onClick={() => Router.push("https://tiger-nest2.herokuapp.com/myEvents")}>Login with CAS</Button>
+
           </a>
-      </Link> 
-      <Link href="https://tiger-nest2.herokuapp.com/hostAllEvents">
           <a className="card">
             <h3 style={divStyle3}>Host 🛏️</h3>
             <p style={divStyle3}>Host a visiting student!</p>
+            <Button style={{marginTop: '48px'}} color="secondary" onClick={() => Router.push("https://tiger-nest2.herokuapp.com/hostAllEvents")}>Login with CAS</Button>
           </a>
-      </Link>
           <a className="card">
             <h3 style={divStyle3}>Visitor 💼</h3>
             <p style={divStyle3}>
