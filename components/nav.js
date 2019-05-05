@@ -9,8 +9,10 @@ class Nav extends React.Component {
   }
 
   handleLogout=() => {
-    if (process.browser)
+    if (process.browser) {
     localStorage.removeItem("token");
+    localStorage.removeItem("eligibility");
+    }
     Router.push("/");
   }
 
