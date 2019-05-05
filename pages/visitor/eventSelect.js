@@ -46,6 +46,10 @@ class EventSelect extends React.Component {
         <div className="hero">
           <center> Welcome <strong>{this.state.user.name} </strong> to the Select page! </center>
           <div className="option">
+          <br />
+          {
+            this.state.events.length === 0 && "You are currently not signed up for any events. Please contact your event organizer if you believe this is a mistake."
+          }
           <ButtonGroup vertical>
           {
             this.state.events.map(event => { 
