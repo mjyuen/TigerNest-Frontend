@@ -3,6 +3,8 @@ import Head from '../../components/head'
 import Nav from '../../components/nav'
 import { Button, ButtonGroup } from 'reactstrap'
 import axios from "axios";
+import Router from 'next/router';
+
 
 
 class RoomConfirm extends React.Component {
@@ -15,7 +17,7 @@ class RoomConfirm extends React.Component {
   static getInitialProps({query}) {
     return {
       event: query.event,
-      pairing_id: query.pairing,
+      pairing: query.pairing,
       vp: query.vp
     }
   }
@@ -24,17 +26,22 @@ class RoomConfirm extends React.Component {
     axios({
         method: 'delete',
         url: 'https://tigernest-backend.herokuapp.com/visitor_pairing/delete/' + this.props.vp,
-        headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}, 
     })
     .then(resp => {
       axios({
         method: 'post',
-        url: 'https://tigernest-backend.herokuapp.com/pairing/removeVisitor/' + this.props.pairing_id,
+        url: 'https://tigernest-backend.herokuapp.com/pairing/removeVisitor/' + this.props.pairing,
         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")},
       })
      })
+     .then(resp => {
+       axios({
+         method: 'post',
+         url: 'https://tigernest-backend.herokuapp.com/eligibility/visitor_signup_not/' + localStorage.getItem("eligibility")
+       })
+     })
     .then(resp => {
-      Router.push("/visitor/roomSearch?event=" + this.props.event)
+      Router.push("/visitor/roomSearch?event=" + this.props.event + "&id=" + localStorage.getItem("eligibility"))
     })
   }
 
@@ -60,7 +67,7 @@ class RoomConfirm extends React.Component {
     <div className="hero">
       <center> Your room type choice for <strong>{this.state.eventInfo.name}</strong> has been confirmed! </center>
       <div className="option">
-      <Button href="/visitor/roomSearch" onClick={this.handleSubmit}>I would like to change my room type</Button>
+      <Button onClick={this.handleSubmit}>I would like to change my room type</Button>
       <Button href="/visitor/eventSelect">I would like to register for a different event</Button>
 
       </div>
