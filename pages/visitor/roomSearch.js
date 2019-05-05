@@ -29,7 +29,6 @@ class RoomSearch  extends React.Component {
   componentDidMount() {
     if (process.browser) {
       localStorage.setItem("eligibility", this.props.id);
-      console.log("hello" + this.props.id)
     }
     axios({
       method: 'get',
@@ -53,11 +52,12 @@ class RoomSearch  extends React.Component {
     })
     .then(resp => {
       var dict = {};
+      console.log("help" + this.state.user.same_gender)
       resp.data.forEach((room) => {
-        if (this.state.user.same_gender == true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
+        if (this.state.user.same_gender === true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
           return;
         }
-        if (room.same_gender_room == true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
+        if (room.same_gender_room === true && (room.host_gender.toLowerCase() !== this.state.user.gender.toLowerCase())) {
           return;
         }
         if (room.num_visitors === room.max_visitors) {
