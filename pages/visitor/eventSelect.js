@@ -4,6 +4,8 @@ import Nav from '../../components/nav'
 import { Button, ButtonGroup } from 'reactstrap'
 import axios from "axios";
 import Router from 'next/router';
+import ReselectModal from './reselectModal';
+
 
 class EventSelect extends React.Component {
   constructor(props) {
@@ -42,14 +44,14 @@ class EventSelect extends React.Component {
         <Nav />
         
         <div className="hero">
-          <center> Welcome <strong>{this.state.user.name}</strong> to the Select page! </center>
+          <center> Welcome <strong>{this.state.user.name} </strong> to the Select page! </center>
           <div className="option">
           <ButtonGroup vertical>
           {
             this.state.events.map(event => { 
               if (event.signed_up) {
                 return (
-                  <ChangeModal event_name={event.event_name} event_id={event.event_id} eligibility_id={event.eligibility_id}/>
+                  <ReselectModal visitor_id={this.state.user.id} event_name={event.event_name} event_id={event.event_id} eligibility_id={event.eligibility_id}/>
                   )
               }
               return (<Button color="primary" onClick={() => Router.push("/visitor/roomSearch?event=" + event.event_id + "&id=" + event.eligibility_id)}>{event.event_name}</Button>
